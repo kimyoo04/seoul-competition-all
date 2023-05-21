@@ -57,6 +57,7 @@ services:
     environment:
       FASTAPI_API_DOMAIN: ${FASTAPI_API_DOMAIN}
       FASTAPI_API_URL: ${FASTAPI_API_URL}
+      FASTAPI_OPENAI_KEY: ${FASTAPI_OPENAI_KEY}
       TZ: "Asia/Seoul"
     depends_on:
       - springboot
