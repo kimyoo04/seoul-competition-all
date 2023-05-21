@@ -9,6 +9,9 @@ RUN pip install transformers
 # torch cpu
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
+# openai 
+RUN pip install openai
+
 # torch 2.0 gpu 버전
 # RUN pip install torch --index-url https://download.pytorch.org/whl/cu118
 
