@@ -38,8 +38,5 @@ out/
 ### VS Code ###
 .vscode/
 
-### yml ###
-src/main/resources/application.yml
-
 ### queryDsl ###
 /src/main/generated/
