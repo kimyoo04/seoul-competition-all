@@ -1,0 +1,34 @@
+.chat-popup {
+  @apply fixed bottom-8 right-16 z-40 w-72 origin-bottom-right overflow-hidden rounded-lg border border-main_color bg-white shadow-md transition-all;
+}
+
+.chat-header {
+  @apply flex w-full items-center justify-between bg-main_color px-3 py-2;
+}
+.chat-header h2 {
+  @apply text-xl font-medium text-font_white;
+}
+
+.chat-textbox {
+  @apply flex max-w-[210px] items-center gap-2 rounded-lg px-2 py-1 shadow-sm shadow-black/20;
+}
+
+.sent-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.received-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.sent-bg {
+  @apply rounded-br-none bg-main_color/5;
+}
+.received-bg {
+  @apply rounded-tl-none;
+}

@@ -1,0 +1,35 @@
+.price-slider {
+  @apply relative h-1 w-full rounded-[10px] bg-white;
+}
+.price-slider-inner {
+  @apply absolute h-1 rounded-[10px] bg-[#858585];
+}
+.price-slider-wrap {
+  @apply relative w-full;
+}
+
+/* input의 배경 제거 및 폭과 위치 설정 */
+input[type="range"].price-input {
+  background: none;
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: none;
+  @apply absolute -top-1 h-2 w-full p-0 shadow-none;
+}
+
+/* 핸들 버튼 스타일 */
+.price-input::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  pointer-events: auto;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  border: 4px solid #96d0f2;
+  background-color: white;
+  @apply shadow-md shadow-black/30;
+}
+
+.min-max-price {
+  @apply absolute top-6 flex w-full items-center justify-between font-bold;
+}

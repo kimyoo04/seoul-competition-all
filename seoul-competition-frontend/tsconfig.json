@@ -1,0 +1,60 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "rootDir": "./",
+    "baseUrl": "./",
+    "paths": {
+      "@api": ["./src/api"],
+      "@api/*": ["./src/api/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@customHook": ["./src/customHook"],
+      "@customHook/*": ["./src/customHook/*"],
+      "@features": ["./src/features"],
+      "@features/*": ["./src/features/*"],
+      "@layouts": ["./src/layouts"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@scenes": ["./src/scenes"],
+      "@scenes/*": ["./src/scenes/*"],
+      "@toolkit": ["./src/toolkit"],
+      "@toolkit/*": ["./src/toolkit/*"],
+      "@type": ["./src/type"],
+      "@type/*": ["./src/type/*"],
+      "@util": ["./src/util"],
+      "@util/*": ["./src/util/*"],
+      "@src": ["./src"],
+      "@src/*": ["./src/*"]
+    },
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
+  },
+  "include": [
+    "next-env.d.ts",
+    "pages/**/*",
+    "src/**/*",
+    "styles/**/*",
+    "public/**/*",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["coverage", ".next", "dist", "out", "node_modules"]
+}

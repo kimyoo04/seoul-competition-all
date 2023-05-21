@@ -1,0 +1,49 @@
+/* 버튼 공통 */
+.base_btn,
+.accent_btn_fill,
+.accent_btn_border,
+.border_btn {
+  @apply rounded-3xl bg-white px-4 py-2 font-bold text-font_black shadow-md;
+}
+
+/* 버튼 커스텀 */
+.base_btn {
+}
+
+.unaccent_btn_fill {
+  @apply bg-sub_color shadow-back_color;
+}
+
+.accent_btn_fill {
+  @apply bg-main_color text-font_white shadow-back_color;
+}
+
+.unaccent_btn_border {
+  @apply border text-font_gray shadow-back_color;
+}
+
+.accent_btn_border {
+  @apply border border-main_color text-main_color shadow-back_color;
+}
+
+.border_btn {
+  @apply border border-gray_2;
+}
+
+.round_btn {
+  @apply rounded-full p-2;
+}
+
+/* 컴포넌트용 */
+
+.create_btn {
+  @apply rounded-lg border-2 border-main_color bg-main_color/20 px-2 text-sm;
+}
+
+.delete_btn {
+  @apply rounded-lg border-2 border-alert_danger bg-alert_danger/20 px-2 text-sm;
+}
+
+.update_btn {
+  @apply rounded-lg border-2 border-gray_2 bg-gray_2/20 px-2 text-sm;
+}

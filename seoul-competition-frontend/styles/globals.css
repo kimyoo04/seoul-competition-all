@@ -1,0 +1,123 @@
+/* globals.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Pretandard font setting */
+
+html {
+  font-family: "Noto Sans KR", ui-sans-serif, system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans",
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+    "Noto Color Emoji";
+}
+
+/* ------------------------------------------------------------------ */
+
+html {
+  scroll-behavior: smooth; /* 스크롤 부드럽게 */
+  white-space: pre-line; /* 줄바꿈 */
+}
+
+/* ------------------------------------------------------------------ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-font_black;
+}
+
+a,
+p,
+i {
+  @apply text-font_black;
+}
+
+span {
+  @apply text-font_black;
+}
+
+html,
+body,
+input,
+textarea {
+  @apply bg-bg_1 text-font_black;
+}
+
+footer {
+  @apply bg-bg_1 text-gray-900;
+}
+
+li {
+  list-style: none;
+}
+
+/* ------------------------------------------------------------------ */
+
+.col-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.col-start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.col-end {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.row-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.row-start {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.row-end {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* ------------------------------------------------------------------ */
+/* 흰배경, 둥근 모서리, 그림자 */
+
+input,
+.box,
+.card {
+  @apply rounded-3xl bg-white shadow-sm shadow-back_color;
+}
+
+/* ------------------------------------------------------------------ */
+/* 경계 */
+.box,
+.card {
+  @apply border border-gray_2;
+}
+
+/* ------------------------------------------------------------------ */
+
+.undraggable {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

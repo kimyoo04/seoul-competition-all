@@ -1,0 +1,9 @@
+/* 공통 */
+input {
+  @apply px-4 py-2 transition-all duration-300 bg-white shadow-sm shadow-gray_3 rounded-3xl;
+}
+
+/* 커스텀 */
+.textfield {
+  @apply border border-gray_2 focus:border-main_color focus:outline-none placeholder:text-sm hover:border-main_color;
+}
