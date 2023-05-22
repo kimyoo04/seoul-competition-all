@@ -5,15 +5,22 @@ export default function PostRankItem({ post }: { post: IRankPostData }) {
   const cutTitle =
     post.title.length > 15 ? post.title.slice(0, 15) + "..." : post.title;
   return (
-    <Link href={`/posts/${post.id}`}>
+    <Link href={`/posts/${post.id}`} className="group">
       <div className=" border-b">
-        <div className="my-1 flex justify-between">
+        <div className="my-1.5 flex justify-between">
           {/* 제목 */}
-          <div className="text-sm">{cutTitle}</div>
+          <span className="group-hover:text-main_color">{cutTitle}</span>
 
           {/* 조회수와 댓글수 */}
-          <div className=" text-xs text-gray-500">
-            조회 {post.hits} · 댓글 {post.commentsCount}
+          <div className="row-center gap-2 text-[14px] text-gray-500">
+            <div className="flex w-12 items-center justify-start gap-1">
+              <i className="ri-eye-fill text-gray_2"></i>
+              <span className="text-gray_2">{post.hits}회</span>
+            </div>
+            <div className="flex w-12 items-center justify-start gap-1">
+              <i className="ri-chat-1-fill text-gray_2"></i>
+              <span className="text-gray_2">{post.commentsCount}개</span>
+            </div>
           </div>
         </div>
       </div>

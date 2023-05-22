@@ -5,6 +5,7 @@ import { useInView } from "react-intersection-observer";
 import { IEducationData } from "@type/educations";
 
 import SimilarEducationList from "@components/SimilarEducationList";
+
 import SearchHeader from "@components/Search/SearchHeader";
 import SearchMore from "@components/Search/SearchMore";
 import SearchNotFound from "@components/Search/SearchNotFound";

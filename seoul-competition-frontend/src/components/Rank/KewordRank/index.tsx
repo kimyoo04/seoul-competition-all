@@ -15,7 +15,7 @@ export default function KeywordRank() {
   const age = useAppSelector((state) => state.age.selectedageStr);
 
   return (
-    <div className="flex h-full flex-col items-center justify-start gap-4 lg:w-1/2">
+    <div className="flex h-full flex-col items-center justify-start gap-5 lg:w-1/2">
       <div className="h-14">
         <h3 className="h-8 flex-none text-center text-2xl font-bold">
           지난주에 가장 많이 검색된 단어예요.
@@ -37,7 +37,7 @@ export default function KeywordRank() {
         </div>
 
         {/* //! 교육정보 최다검색 키워드 Top5 */}
-        <div className=" col-center rounded-2xl bg-main_color/5 p-8 shadow-md lg:h-[560px]">
+        <div className=" col-center rounded-2xl bg-main_color/5 p-8 shadow-md lg:h-[690px]">
           {isLoading ? (
             <RankLoading />
           ) : isError ? (

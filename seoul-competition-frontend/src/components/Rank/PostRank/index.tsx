@@ -9,7 +9,7 @@ export default function PostRank() {
 
   return (
     <div className="w-full">
-      <h3 className="mb-4 text-center text-2xl font-bold">
+      <h3 className="mb-5 text-center text-2xl font-bold">
         지난주에 가장 인기 있던 게시글이에요.
       </h3>
 
