@@ -80,18 +80,27 @@ export default function UserForm() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="fixed left-0 top-0 z-40 h-screen w-screen bg-black/60"
+        className="fixed left-0 top-0 z-50 h-screen w-screen bg-black/60"
       ></motion.div>
 
       {/* 유저 폼 영역 */}
       {genders && ageDataArr && locations && interests && (
-        <div className="col-center relative left-0 right-0">
+        <div className="col-center fixed left-0 right-0 top-0 z-50 h-screen w-screen cursor-pointer">
           <motion.form
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="col-start absolute z-40 gap-4 rounded-2xl bg-white p-8"
+            className="col-start relative m-auto gap-4 rounded-2xl bg-white p-8"
             onSubmit={handleSubmit(onValid)}
           >
+            {/* 닫기 버튼 */}
+            <div
+              className="absolute right-8 top-8 z-50"
+              onClick={() => dispatch(userFormActions.hide())}
+            >
+              <i className="ri-close-fill text-2xl text-black"></i>
+            </div>
+
+            {/* 성별 */}
             <div className="col-start gap-2">
               <div className="row-start gap-4">
                 <span className="font-bold">성별</span>
@@ -112,7 +121,7 @@ export default function UserForm() {
                             key={gender}
                             className={`undraggable rounded-2xl border border-main_color px-3 py-0.5 transition-all ${classNames(
                               {
-                                "bg-main_color font-bold text-font_white shadow-md":
+                                "bg-main_color text-font_white shadow-md":
                                   field.value == gender,
                               }
                             )}`}
@@ -138,6 +147,7 @@ export default function UserForm() {
               />
             </div>
 
+            {/* 연령대 */}
             <div className="col-start gap-2">
               <div className="row-start gap-4">
                 <span className="font-bold">연령대</span>
@@ -161,7 +171,7 @@ export default function UserForm() {
                             key={data.age}
                             className={`undraggable rounded-2xl border border-main_color px-3 py-0.5 transition-all ${classNames(
                               {
-                                "bg-main_color font-bold text-font_white shadow-md":
+                                "bg-main_color text-font_white shadow-md":
                                   field.value === data.age,
                               }
                             )}`}
@@ -187,6 +197,7 @@ export default function UserForm() {
               />
             </div>
 
+            {/* 거주 지역 */}
             <div className="col-start relative w-full gap-2">
               <div className="row-start gap-4">
                 <span className="font-bold">거주 지역</span>
@@ -210,6 +221,7 @@ export default function UserForm() {
               </div>
             </div>
 
+            {/* 관심사 */}
             <div className="col-start relative w-full gap-2">
               <div className="row-start gap-4">
                 <span className="font-bold">관심사</span>
@@ -245,7 +257,7 @@ export default function UserForm() {
                     htmlFor="confirm"
                     className={`row-center ${
                       field.value
-                        ? "font-bold"
+                        ? "font-medium"
                         : errors.confirm?.message
                         ? "text-main_color"
                         : ""
@@ -270,14 +282,6 @@ export default function UserForm() {
             >
               확인하기
             </motion.button>
-
-            {/* 닫기 버튼 */}
-            <div
-              className="absolute right-8 top-8 z-50"
-              onClick={() => dispatch(userFormActions.hide())}
-            >
-              <i className="ri-close-fill text-2xl text-black"></i>
-            </div>
           </motion.form>
         </div>
       )}
