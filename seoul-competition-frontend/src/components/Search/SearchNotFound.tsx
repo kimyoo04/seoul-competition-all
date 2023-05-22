@@ -5,6 +5,7 @@ import SearchGuide from "./SearchGuide";
 
 export default function SearchNotFound() {
   const searchKeyword = useAppSelector((state) => state.search.searchKeyword);
+  const searchCategory = useAppSelector((state) => state.search.category);
 
   return (
     <>
@@ -21,7 +22,7 @@ export default function SearchNotFound() {
         <SearchGuide />
 
         {/* //! 검색어 5개 리스트 */}
-        <SearchKeywordRank />
+        {searchCategory === "educations" && <SearchKeywordRank />}
       </div>
 
       {/* //! 골라보기 버튼 강조 */}

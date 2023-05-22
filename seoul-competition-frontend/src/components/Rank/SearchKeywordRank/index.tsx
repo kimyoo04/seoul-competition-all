@@ -8,7 +8,7 @@ export default function SearchKeywordRank() {
   const { data, isLoading, isError } = useReadKeywordAgeRank();
 
   return (
-    <div className="col-center gap-4">
+    <div className="col-center w-full gap-4">
       <h2 className="text-xl font-bold text-main_color">
         이런 검색어는 어떠신가요?
       </h2>
