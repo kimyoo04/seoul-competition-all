@@ -6,13 +6,13 @@ import { IPostData } from "@type/posts";
 
 import SearchHeader from "@components/Search/SearchHeader";
 import SearchMore from "@components/Search/SearchMore";
+import SearchNotFound from "@components/Search/SearchNotFound";
 
 import PostItem from "@scenes/Posts/PostItem";
 import PostListLoader from "./PostListLoader";
 
 import { useInfinitePosts } from "@api/posts/readPosts";
 import { filterActions } from "@features/filter/filterSlice";
-import SearchNotFound from "@components/Search/SearchNotFound";
 
 export default function PostList() {
   const dispatch = useAppDispatch();
