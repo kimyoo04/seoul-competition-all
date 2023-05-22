@@ -121,3 +121,24 @@ input,
   -ms-user-select: none;
   user-select: none;
 }
+
+/* ------------------------------------------------------------------ */
+
+.education-detail__table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+}
+
+.education-detail__table td,
+.education-detail__table th {
+  @apply border border-gray_3/50 p-2;
+}
+
+.education-detail__table tr:nth-child(even) {
+  @apply bg-main_color/10;
+}
+
+.education-detail__table tr:hover {
+  @apply bg-main_color/20;
+}
