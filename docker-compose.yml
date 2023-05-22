@@ -6,12 +6,6 @@ services:
     build:
       context: ./seoul-competition-mysql
       dockerfile: Dockerfile
-      args:
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-        MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     image: mysql
     restart: always
     command:
@@ -21,6 +15,11 @@ services:
     volumes:
       - ./seoul-competition-mysql/db:/var/lib/mysql
     environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       TZ: "Asia/Seoul"
     networks:
       - server-network
