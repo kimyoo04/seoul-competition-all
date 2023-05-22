@@ -37,7 +37,7 @@ export default function KeywordRank() {
         </div>
 
         {/* //! 교육정보 최다검색 키워드 Top5 */}
-        <div className=" col-center rounded-2xl bg-main_color/5 p-8 shadow-md lg:h-[668px]">
+        <div className=" col-center rounded-2xl bg-main_color/5 p-8 shadow-md lg:h-[690px]">
           {isLoading ? (
             <RankLoading />
           ) : isError ? (

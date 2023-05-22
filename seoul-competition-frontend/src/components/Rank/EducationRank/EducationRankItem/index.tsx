@@ -25,7 +25,7 @@ export default function EducationRankItem({
       <Link href={`/educations/${education.id}`}>
         <div className="col-start gap-1 border-b py-2">
           {/* 제목 */}
-          <div className="">{cutTitle}</div>
+          <span className="group-hover:text-main_color">{cutTitle}</span>
 
           {/* 접수 마감일 & 비용 & 정원 */}
           <div className="flex w-full items-center justify-between">

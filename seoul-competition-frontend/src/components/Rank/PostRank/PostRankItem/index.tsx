@@ -5,13 +5,11 @@ export default function PostRankItem({ post }: { post: IRankPostData }) {
   const cutTitle =
     post.title.length > 15 ? post.title.slice(0, 15) + "..." : post.title;
   return (
-    <Link href={`/posts/${post.id}`}>
+    <Link href={`/posts/${post.id}`} className="group">
       <div className=" border-b">
-        <div className="my-1 flex justify-between">
+        <div className="my-1.5 flex justify-between">
           {/* 제목 */}
-          <div className="">
-            <span>{cutTitle}</span>
-          </div>
+          <span className="group-hover:text-main_color">{cutTitle}</span>
 
           {/* 조회수와 댓글수 */}
           <div className="row-center gap-2 text-[14px] text-gray-500">
