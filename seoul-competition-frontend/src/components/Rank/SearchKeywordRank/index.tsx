@@ -1,18 +1,35 @@
-import { rankEducationUserKeywords } from "public/data/rankingData";
+import RankLoading from "../RankLoading";
+import RankNotFound from "../RankNotFound";
+import RankServerError from "../RankServerError";
 import SearchKeywordRankList from "./SearchKeywordRankList";
+import { useReadKeywordAgeRank } from "@api/rank/readKeywordAgeRank";
 
 export default function SearchKeywordRank() {
-  const data = rankEducationUserKeywords.data;
+  const { data, isLoading, isError } = useReadKeywordAgeRank();
 
   return (
-    <div className="mb-8 rounded-2xl bg-main_color/5 p-4 shadow-md">
-      {/* 교육정보 최다 검색 키워드 Top5 */}
-      <h3 className="mb-4 text-center text-xl font-medium">
-        이런 검색어는 어떠세요?
-      </h3>
-
-      {/* 리스트 */}
-      <SearchKeywordRankList dataArr={data} />
+    <div className="col-center gap-4">
+      <h2 className="text-xl font-bold text-main_color">
+        이런 검색어는 어떠신가요?
+      </h2>
+      <div className="mb-8 w-full rounded-2xl bg-main_color/5 p-4 shadow-md">
+        {/* 교육정보 최다 검색 키워드 Top5 */}
+        {isLoading ? (
+          <RankLoading />
+        ) : isError ? (
+          <RankServerError />
+        ) : (
+          data && (
+            <>
+              {data.data.length > 0 ? (
+                <SearchKeywordRankList dataArr={data.data} />
+              ) : (
+                <RankNotFound />
+              )}
+            </>
+          )
+        )}
+      </div>
     </div>
   );
 }
