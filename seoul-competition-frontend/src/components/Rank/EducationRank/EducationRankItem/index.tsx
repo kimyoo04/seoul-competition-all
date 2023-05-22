@@ -10,18 +10,46 @@ export default function EducationRankItem({
     education.name.length > 30
       ? education.name.slice(0, 30) + "..."
       : education.name;
+
+  const statusBorder =
+    education.status === "수강신청중"
+      ? "text-main_color text-font_white"
+      : education.status === "수강신청예정"
+      ? "text-sub_color"
+      : education.status === "마감"
+      ? "text-gray_2"
+      : "";
+
   return (
-    <li>
+    <li className="group">
       <Link href={`/educations/${education.id}`}>
-        <div className=" border-b">
+        <div className="col-start gap-1 border-b py-2">
           {/* 제목 */}
-          <div className="my-1 text-sm">{cutTitle}</div>
+          <div className="">{cutTitle}</div>
 
           {/* 접수 마감일 & 비용 & 정원 */}
-          <div className="my-1 flex justify-between">
-            <div className=" text-xs text-gray-500">
-              조회 {education.hits} · 접수 기한 {education.registerEnd} · 비용{" "}
-              {education.price} · 정원 {education.capacity}
+          <div className="flex w-full items-center justify-between">
+            <div className="row-center gap-2 text-[14px] text-gray-500">
+              <div className="flex w-12 items-center justify-start gap-1">
+                <i className="ri-eye-fill text-gray_2"></i>
+                <span className="text-gray_2">{education.hits}회</span>
+              </div>
+              <div className="flex w-16 items-center justify-start gap-1">
+                <i className="ri-user-fill text-gray_2"></i>
+                <span className="text-gray_2">{education.capacity}명</span>
+              </div>
+              <div className="flex w-20 items-center justify-start gap-1">
+                <i className="ri-coin-fill text-gray_2"></i>
+                <span className="text-gray_2">
+                  {education.price === "0" ? "무료" : `${education.price}원`}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex w-24 items-center justify-end gap-1 text-[14px]">
+              <span className={`text-gray_2 ${statusBorder}`}>
+                {education.status}
+              </span>
             </div>
           </div>
         </div>
