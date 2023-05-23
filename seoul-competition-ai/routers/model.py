@@ -21,7 +21,7 @@ class TEducation(BaseModel):
     capacity: int
     registerStart: str
     registerEnd: str
-    educationsStart: str
+    educationStart: str
     educationEnd: str
     url: str
     hits: int
