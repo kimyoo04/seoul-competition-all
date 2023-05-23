@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -35,5 +36,7 @@ public interface PostRepository extends JpaRepository<Post, Long>, QuerydslPredi
       @Param("endDate") LocalDateTime endDate,
       Pageable pageable);
 
-  List<Post> findTop5ByOrderByHitsDesc();
+  @Query("SELECT p FROM Post p WHERE p.createdAt > :date")
+  Page<Post> findTop5ByCreatedAtAfterOrderByHitsDesc(@Param("date") LocalDateTime date,
+      PageRequest pageRequest);
 }
