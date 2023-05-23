@@ -9,7 +9,7 @@ export default function Header({ data }: IHeaderProps) {
     data.status === "수강신청중"
       ? "text-main_color text-font_white"
       : data.status === "수강신청예정"
-      ? "text-sub_color"
+      ? "text-[#00adc3]"
       : data.status === "마감"
       ? "text-gray_4"
       : "";
