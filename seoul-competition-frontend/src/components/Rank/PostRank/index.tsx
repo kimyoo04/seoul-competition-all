@@ -14,7 +14,7 @@ export default function PostRank() {
       </h3>
 
       <div className="col-center">
-        <div className="col-center h-6 w-52 rounded-t-md bg-main_color/90 ">
+        <div className="col-center h-8 w-52 rounded-t-md bg-main_color/90 ">
           <span className="text-font_white">자유게시판</span>
         </div>
       </div>
