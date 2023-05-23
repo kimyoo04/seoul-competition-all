@@ -16,7 +16,7 @@ export default function Content({ data }: { data: IContent }) {
 
   return (
     <>
-      {data.title === "취업 챗봇" ? (
+      {data.title === "가이드 챗봇" ? (
         <div
           onClick={() => dispatch(chatActions.toggleChat())}
           className="h-full w-full"
