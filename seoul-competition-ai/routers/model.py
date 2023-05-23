@@ -16,13 +16,12 @@ class StatusEnum(str, Enum):
 class TEducation(BaseModel):
     id: int
     name: str
-    # # status = StatusEnum
-    status: str
     price: int
+    status: str    
     capacity: int
     registerStart: str
     registerEnd: str
-    educationStart: str
+    educationsStart: str
     educationEnd: str
     url: str
     hits: int
@@ -40,7 +39,6 @@ class TModelUpdateData(BaseModel):
 
 @router.post("/")
 def predict(data: TModelUpdateData):
-
     model_update.update_model_data(data)
 
     return {"answer": 0}
