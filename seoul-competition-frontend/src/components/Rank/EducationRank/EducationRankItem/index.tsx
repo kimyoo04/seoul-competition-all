@@ -11,11 +11,11 @@ export default function EducationRankItem({
       ? education.name.slice(0, 30) + "..."
       : education.name;
 
-  const statusBorder =
+  const statusText =
     education.status === "수강신청중"
       ? "text-main_color text-font_white"
       : education.status === "수강신청예정"
-      ? "text-sub_color"
+      ? "text-[#00adc3]"
       : education.status === "마감"
       ? "text-gray_2"
       : "";
@@ -30,7 +30,7 @@ export default function EducationRankItem({
           {/* 접수 마감일 & 비용 & 정원 */}
           <div className="flex w-full items-center justify-between">
             <div className="row-center gap-2 text-[14px] text-gray-500">
-              <div className="flex w-12 items-center justify-start gap-1">
+              <div className="flex w-16 items-center justify-start gap-1">
                 <i className="ri-eye-fill text-gray_2"></i>
                 <span className="text-gray_2">{education.hits}회</span>
               </div>
@@ -47,7 +47,7 @@ export default function EducationRankItem({
             </div>
 
             <div className="flex w-24 items-center justify-end gap-1 text-[14px]">
-              <span className={`text-gray_2 ${statusBorder}`}>
+              <span className={`text-gray_2 ${statusText}`}>
                 {education.status}
               </span>
             </div>

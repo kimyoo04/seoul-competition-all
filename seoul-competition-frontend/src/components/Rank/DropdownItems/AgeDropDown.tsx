@@ -12,7 +12,7 @@ export default function AgeDropDown() {
     <div className="col-center relative">
       {/* toggle button */}
       <button
-        className="flex h-6 w-52 items-center justify-between rounded-t-md bg-main_color/90  shadow-md"
+        className="flex h-8 w-52 items-center justify-between rounded-t-md bg-main_color/90  shadow-md"
         onClick={() => {
           dispatch(interestActions.close());
           dispatch(ageActions.toggleOpen());
@@ -29,11 +29,11 @@ export default function AgeDropDown() {
 
       {/* Dropdown */}
       {isOpen && (
-        <ul className="col-center z-1 absolute top-6 w-52  rounded-b-md bg-white shadow-md">
+        <ul className="col-center w-52  rounded-b-md bg-white  shadow-md">
           {ageDataArr.map((ageData, indx) => (
             <li
               key={indx + ageData.age}
-              className="col-center w-52 border-b"
+              className="col-center w-52 cursor-pointer border-b py-1 hover:text-main_color"
               onClick={() => dispatch(ageActions.selectAge({ ...ageData }))}
             >
               {ageData.ageStr}
@@ -41,7 +41,7 @@ export default function AgeDropDown() {
           ))}
 
           <li
-            className="col-center w-52"
+            className="col-center w-52 cursor-pointer py-1 hover:text-main_color"
             onClick={() => dispatch(ageActions.selectTotal())}
           >
             전체
