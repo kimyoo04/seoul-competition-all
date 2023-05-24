@@ -20,7 +20,7 @@ def return_guide() :
                         별점: 교육 정보에 대한 별점을 남기는 기능은 제공하지 않습니다.
                         검색 기능: 교육 정보 검색 기능은 제공합니다. 사용자가 검색한 교육 정보에 대하여 유사한 교육 정보를 추천해줍니다.
                         사용자 식별: 댓글 작성 시 비밀번호를 설정하여 수정과 삭제를 제한적으로 가능하게 합니다.
-                    
+
                     사용자가 인사 및 고마움의 표현에 대해서는 자연스럽게 답변할 것.
                     조건에 맞지 않는 질문의 경우에는 최대한 친절하게 답할 것.
 
@@ -46,16 +46,16 @@ def check_chat_data() :
     # 모델과 데이터 존재 확인
     if os.path.isfile(model) and os.path.isfile(tokenizer) and os.path.isfile(data):
         return True
-    
+
     else :
         init_chat_model_data()
-    
+
     return True
 
 def init_chat_model_data() :
     '''
-    - 허깅페이스에서 사용하는 모델 및 토크나이저 다운로드 
-    - 모델 및 토크나이저 저장 
+    - 허깅페이스에서 사용하는 모델 및 토크나이저 다운로드
+    - 모델 및 토크나이저 저장
     - 데이터에 대한 부분은 고려
     '''
     tokenizer = AutoTokenizer.from_pretrained('jhgan/ko-sroberta-multitask')
@@ -82,7 +82,7 @@ def load_chatbot_model() :
 
 def load_chatbot_tokenizer() :
     '''
-    - 챗봇 토크나이저 로드 
+    - 챗봇 토크나이저 로드
 
     return : 챗봇 토크나이저
     '''
@@ -111,7 +111,7 @@ def mean_pooling(model_output, attention_mask):
     '''
     token_embeddings = model_output[0] #First element of model_output contains all token embeddings
     input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
-    
+
     return torch.sum(token_embeddings * input_mask_expanded, 1) / torch.clamp(input_mask_expanded.sum(1), min=1e-9)
 
 
@@ -134,7 +134,7 @@ def chatGPT(prompt) :
 def use_chatbot(user_question, chatbot_model) :
     '''
     - 사용자 입력 문자열에 대하여 챗봇의 답변을 문자열로 반환
-    - 현재 transformers 를 이용한 방식 
+    - 현재 transformers 를 이용한 방식
 
     user_question : str
     return : str
@@ -146,12 +146,12 @@ def use_chatbot(user_question, chatbot_model) :
 
         chatbot_tokenizer = load_chatbot_tokenizer()
 
-        encoded_input = chatbot_tokenizer(user_question, padding=True, truncation=True, return_tensors='pt')  
+        encoded_input = chatbot_tokenizer(user_question, padding=True, truncation=True, return_tensors='pt')
 
         with torch.no_grad():
             input_output = chatbot_model(**encoded_input)
 
-        input_embeddings = mean_pooling(input_output, encoded_input['attention_mask']) 
+        input_embeddings = mean_pooling(input_output, encoded_input['attention_mask'])
         input_embeddings_array = input_embeddings.numpy()
         final_input_data = input_embeddings_array.reshape(-1,)
 
@@ -162,30 +162,30 @@ def use_chatbot(user_question, chatbot_model) :
             # 사전 제약조건 + 유저의 입력
             prompt = return_guide() + user_question
 
-            # 간혹 GPT 응답 오류 처리 
-            try : 
+            # 간혹 GPT 응답 오류 처리
+            try :
                 response = chatGPT( prompt )
-            
-            except : 
+
+            except :
                 answer = "잠시 문제가 발생했습니다. 다시 입력해주세요."
-                return answer 
+                return answer
 
             answer = response["choices"][0]["message"]["content"]
 
-            temp_dict = {"question" : user_question, 
-                         "answer" : answer, 
+            temp_dict = {"question" : user_question,
+                         "answer" : answer,
                          "embedding" : [final_input_data] }
-            
+
             temp_df = pd.DataFrame(temp_dict)
 
-            # GPT에서 생성된 대화를 챗봇 데이터에 추가 
+            # GPT에서 생성된 대화를 챗봇 데이터에 추가
             origin_chatbot_data = pd.concat([origin_chatbot_data, temp_df], ignore_index=True)
 
-            path = os.path.join(os.getcwd(), 'data', 'chatbot_data_test.pkl')
+            path = os.path.join(os.getcwd(), 'data', 'chatbot_data.pkl')
             origin_chatbot_data.to_pickle(path)
 
             # 답변 반환
-            return answer 
+            return answer
 
     else :
          answer = "챗봇이 잠시 쉬러갔어요. 금방 돌아올게요!"
