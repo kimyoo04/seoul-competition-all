@@ -26,3 +26,12 @@ jobs:
           host: 3.39.12.144 # EC2 인스턴스의 공용 IP 주소로 교체하세요.
           username: ubuntu # EC2 인스턴스의 사용자 이름으로 교체하세요.
           key: ${{ secrets.EC2_SSH_PRIVATE_KEY }}
+          # 나머지 Secrets도 동일하게 처리
+          script_stop: true
+          script: |
+            cd seoul-competition-all
+            git pull origin develop
+            sudo docker-compose stop 
+            sudo docker-compose down --volumes
+            sudo docker system prune -af --volumes 
+            sudo docker-compose up -d --build
