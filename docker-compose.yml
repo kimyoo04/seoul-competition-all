@@ -76,8 +76,7 @@ services:
     environment:
       TZ: "Asia/Seoul"
     volumes:
-      - "./seoul-competition-frontend:/usr/src/nextjs"
-      - "/usr/src/nextjs"
+      - "./seoul-competition-frontend/.next/standalone:/usr/src/nextjs"
     networks:
       - server-network
 
