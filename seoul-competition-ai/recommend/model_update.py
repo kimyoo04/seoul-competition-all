@@ -15,14 +15,18 @@ import pandas as pd
 import re
 import requests
 import json
-
+import torch
 import openai
 
-import warnings
-warnings.filterwarnings("ignore")
+from chat import chat 
 
-import chat 
-import torch
+end_txt = '''
+질문에 대한 답변이 사이트에 대한 조건과 적합하다면 기존의 답을
+사이트 이용에 적합하지 않은 답변이라면 새로운 답변을 생성해주세요
+
+답변만 반환해주세요.
+'''
+
 
 # 모델 및 df 존재 확인
 def check_model_data() :
@@ -98,7 +102,9 @@ def update_model_data(update_data) :
     education_data = pd.DataFrame([edu.dict() for edu in update_data.educations])
     chatHistories_data = pd.DataFrame([edu.dict() for edu in update_data.chatHistories])
 
-    #
+    # 교육 데이터의 컬럼 변경 
+    education_data.columns = ['id', 'name', 'price', 'status', 'capacity', 'registerStart',
+       'registerEnd', 'educationStart', 'educationEnd', 'url', 'hits']
 
     ### 교육 추천 관련 처리
 
@@ -126,66 +132,52 @@ def update_model_data(update_data) :
     ### 교육 추천 관련 처리  챗봇 데이터 저장
     chat_path = os.path.join(os.getcwd(), 'data', 'chatbot_history.pkl')
 
-    # 날짜 처리
-    chatHistories_data["createdAt"] = pd.to_datetime( chatHistories_data["createdAt"]).dt.date
-    chatHistories_data["createdAt"] = pd.to_datetime(chatHistories_data["createdAt"])
+    # 날짜 처리 -> 날짜 drop으로 변경 
+    # chatHistories_data["createdAt"] = pd.to_datetime( chatHistories_data["createdAt"]).dt.date
+    # chatHistories_data["createdAt"] = pd.to_datetime(chatHistories_data["createdAt"])
 
-    chatHistories_data.to_pickle(chat_path)
+    # 날짜와 id, feedback 값 삭제
+    chatHistories_data = chatHistories_data.loc[ (chatHistories_data["feedback"] == True) | (chatHistories_data["feedback"] == False) ]
+    chatHistories_data = chatHistories_data.drop(["id","createdAt","feedback"], axis=1)
 
-    chathistory_fix()
+    history_valid(chatHistories_data)
 
 
-def chathistory_fix() :
+def history_valid(positive):
     '''
-    - 챗봇 대화 히스토리 항목의 유저 부정 평가에 대한 Chat GPT API 를 사용한 답변 수정.
-    - 기존 챗봇 대화 데이터에 추가
-    - 기존 챗봇 대화 데이터 임베딩 값 수정
-
-    return : chatbot_data
-
+    
     '''
-    guide_msg = '''다음은 챗봇이 서비스 중인 사이트에 대한 정보입니다. 
-            1. 회원 가입 및 로그인 기능은 없음.
-            2.  교육정보 검색 기능 : 공공 데이터에서 제공해주는 교육 정보를 받아와서 사이트 내에서 검색을 하면 
-            교육에 대한 정보를 사용자에게 출력함.
-            3. 교육 정보 추천 기능 : 사용자가 검색한 교육 정보와 유사한 교육을 추천함.
-            4. 이 챗봇은 사이트의 이용에 대한 도움을 주는 용도임.
-            5. 사용자가 검색하여 확인한 교육정보를 클릭하면 교육의 상세정보를 볼 수 있음. 
-            6. 교육 정보에는 댓글을 남길수 있음.
-            7. 자유게시판에 글을 작성할 수 있음.
-            8. 자유게시판, 교육정보의 댓글, 자유게시판 게시물의 댓글은 모두 로그인을 필요로 하지 않음.
-            9. 8번 항목에 대해 닉네임과 비밀번호를 설정하는 방식을 사용함
-            10. 비밀번호를 잊어버리면 게시물의 수정 및 삭제를 할 수 없음.
-            
-            위와 같은 조건의 사이트에서 운영되는 챗봇이라는 가정하에 한국어로 답변을 작성해야함.
-            
-            질문 : 
-            '''
+    # 챗봇 히스토리 데이터 불러오기 
+    chatbot_data = chat.load_chatbot_data()
 
-    OPENAI_API_KEY = os.environ.get("FASTAPI_OPENAI_KEY")
-    openai.api_key = OPENAI_API_KEY
+    # 긍정으로 답한 "답변"에 대해서 기존에 존재하는지 확인
+    check_data = []
+    temp_answer = []
 
-    history_path = os.path.join(os.getcwd(), 'data', 'chatbot_history.pkl')
-    data_path = os.path.join(os.getcwd(), 'data', 'chatbot_data.pkl')
+    guide_msg = chat.return_guide()
 
-    history_data = pd.read_pickle(history_path)
-    chatbot_data = pd.read_pickle(data_path) 
+    for ques, ans in zip( positive["question"] , positive["answer"] ):
+        try :
+            check_data.append( chatbot_data.index[ chatbot_data["answer"] == ans ][0] )
 
-    new_answer = []
+        except :
+            continue
+    
+    for ques, ans in zip( positive["question"] , positive["answer"] ):
+        prompt = guide_msg + ques + "답변 :" + ans + end_txt
 
-    for q,a in zip(history_data["question"], history_data["answer"]) :
-        prompt = q+"질문의 답으로"+a+"는 적합하지 않다. 적합한 답변을 한문장으로 새로 작성"
-        final_prompt = guide_msg + prompt
-        
-        response = chatGPT(final_prompt)
-        
-        new_answer.append( response["choices"][0]["message"]["content"] )
+        response = chat.chatGPT( prompt )
+        temp_answer.append( response["choices"][0]["message"]["content"]  )
 
-    history_data["answer"] = new_answer
+    positive["answer"] = temp_answer
 
-    final_df = pd.concat([chatbot_data,history_data])
+    # # 중복된 답변이 있는 경우 삭제함.
+    chatbot_data.drop(index=check_data)
 
-    chat_input = final_df["question"].to_list()
+    chatbot_data = pd.concat([chatbot_data, positive])
+    chatbot_data.reset_index(drop=True, inplace=True)
+    
+    chat_input = chatbot_data["question"].to_list()
 
     tokenizer = chat.load_chatbot_tokenizer()
     encoded_question = tokenizer(chat_input, padding=True, truncation=True, return_tensors='pt')
@@ -202,25 +194,6 @@ def chathistory_fix() :
 
     path = os.path.join(os.getcwd(), 'data', 'chatbot_data.pkl')
     chatbot_data.to_pickle(path)
-
-
-
-def chatGPT(prompt) :
-    completion = openai.ChatCompletion.create(
-        # model
-        model = "gpt-3.5-turbo",
-        
-        # msg
-        messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": prompt},
-            
-        ],
-        temperature = 0.2
-
-    )
-        
-    return completion
 
 
 def date_preprocessing(dataframe) :

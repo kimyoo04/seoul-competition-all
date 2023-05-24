@@ -8,23 +8,27 @@ import os
 import joblib
 import openai
 
-guide_msg = '''
-                1. 사이트 종류: 교육 정보 공유 사이트
-                2. 기능:
-                    교육 정보 게시판: 교육과 관련된 정보를 게시하고 공유하는 공간입니다. 교육정보 페이지 우측 하단에 '골라보기' 버튼을 클릭하여 확인할 수 있습니다.
-                    자유게시판: 교육과는 관련없는 다양한 주제로 글을 작성하고 의견을 공유하는 공간입니다.
-                    댓글 기능: 교육 정보나 게시글에 대한 댓글을 작성하고 수정, 삭제할 수 있습니다. 댓글 작성 시 비밀번호를 설정하여 식별이 가능합니다.
-                    별점: 교육 정보에 대한 별점을 남기는 기능은 제공하지 않습니다.
-                    검색 기능: 교육 정보 검색 기능은 제공합니다. 사용자가 검색한 교육 정보에 대하여 유사한 교육 정보를 추천해줍니다.
-                    사용자 식별: 댓글 작성 시 비밀번호를 설정하여 수정과 삭제를 제한적으로 가능하게 합니다.
-                
-                사용자가 인사 및 고마움의 표현에 대해서는 자연스럽게 답변할 것.
-                조건에 맞지 않는 질문의 경우에는 최대한 친절하게 답할 것.
 
-                답변은 최대한 한 문장으로 끝낼것.
+def return_guide() :
 
-                질문 :
+    guide_msg = '''
+                    1. 사이트 종류: 교육 정보 공유 사이트
+                    2. 기능:
+                        교육 정보 게시판: 교육과 관련된 정보를 게시하고 공유하는 공간입니다. 교육정보 페이지 우측 하단에 '골라보기' 버튼을 클릭하여 확인할 수 있습니다.
+                        자유게시판: 교육과는 관련없는 다양한 주제로 글을 작성하고 의견을 공유하는 공간입니다.
+                        댓글 기능: 교육 정보나 게시글에 대한 댓글을 작성하고 수정, 삭제할 수 있습니다. 댓글 작성 시 비밀번호를 설정하여 식별이 가능합니다.
+                        별점: 교육 정보에 대한 별점을 남기는 기능은 제공하지 않습니다.
+                        검색 기능: 교육 정보 검색 기능은 제공합니다. 사용자가 검색한 교육 정보에 대하여 유사한 교육 정보를 추천해줍니다.
+                        사용자 식별: 댓글 작성 시 비밀번호를 설정하여 수정과 삭제를 제한적으로 가능하게 합니다.
+                    
+                    사용자가 인사 및 고마움의 표현에 대해서는 자연스럽게 답변할 것.
+                    조건에 맞지 않는 질문의 경우에는 최대한 친절하게 답할 것.
+
+                    답변은 최대한 한 문장으로 끝낼것.
+
+                    질문 :
             '''
+    return guide_msg
 
 def check_chat_data() :
     '''
@@ -112,6 +116,9 @@ def mean_pooling(model_output, attention_mask):
 
 
 def chatGPT(prompt) :
+    OPENAI_API_KEY = os.environ.get("FASTAPI_OPENAI_KEY")
+    openai.api_key = OPENAI_API_KEY
+
     response = openai.ChatCompletion.create(
         model = "gpt-3.5-turbo",
 
@@ -152,12 +159,8 @@ def use_chatbot(user_question, chatbot_model) :
 
 
         if chatbot_data["cosin"].max() < 0.60 :
-            # GPT 호출 
-            OPENAI_API_KEY = os.environ.get("FASTAPI_OPENAI_KEY")
-            openai.api_key = OPENAI_API_KEY
-
             # 사전 제약조건 + 유저의 입력
-            prompt = guide_msg + user_question
+            prompt = return_guide() + user_question
 
             # 간혹 GPT 응답 오류 처리 
             try : 

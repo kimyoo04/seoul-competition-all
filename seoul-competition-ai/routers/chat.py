@@ -20,7 +20,6 @@ chatbot_model = load_model()
 
 @router.post("/answer")
 def predict(data: TChatQuestion):
-    # answer = chat.use_chatbot(data.question)
     answer = chat.use_chatbot(data.question, chatbot_model)
 
     return {"answer": answer}
