@@ -49,8 +49,6 @@ export default function UpDelButtons({ id }: { id: TId }) {
       );
       // 목록 페이지 이동
       router.push("/posts");
-      // 캐시 삭제 필요?
-      //! --------------------
     }
   };
 
@@ -63,8 +61,8 @@ export default function UpDelButtons({ id }: { id: TId }) {
             onSubmit={handleSubmit(onValid)}
             className="row-center relative gap-2"
           >
-            <div className="absolute right-0 top-8">
-              <label>비밀번호</label>
+            <div className="absolute right-0 top-8 rounded-lg border border-gray_3 shadow-sm">
+              <label className="col-center border-b py-1">비밀번호</label>
               <input
                 {...register("password", {
                   required: "비밀번호를 입력해 주세요.",
@@ -84,7 +82,7 @@ export default function UpDelButtons({ id }: { id: TId }) {
                 autoComplete="off"
                 placeholder="4 자 이상"
                 maxLength={13}
-                className=" h-8 w-[100px] rounded-lg placeholder:text-sm placeholder:font-bold placeholder:text-gray_2"
+                className="textfield h-8 w-[100px] rounded-lg rounded-t-none border-none placeholder:text-sm placeholder:text-gray_2"
               />
             </div>
 
