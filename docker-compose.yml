@@ -105,6 +105,8 @@ services:
       - springboot
       - mysqldb
       - fastapi
+    networks:
+      - server-network
 
 networks:
   server-network:
