@@ -14,6 +14,8 @@ services:
       - "--default-authentication-plugin=mysql_native_password"
     volumes:
       - ./seoul-competition-mysql/db:/var/lib/mysql
+    ports:
+      - "3306:3306"
     environment:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -103,8 +105,6 @@ services:
       - springboot
       - mysqldb
       - fastapi
-    networks:
-      - server-network
 
 networks:
   server-network:
