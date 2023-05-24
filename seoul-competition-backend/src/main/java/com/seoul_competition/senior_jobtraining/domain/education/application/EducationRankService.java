@@ -5,7 +5,6 @@ import com.seoul_competition.senior_jobtraining.domain.education.dto.response.Ed
 import com.seoul_competition.senior_jobtraining.domain.education.dto.response.EducationResponse;
 import com.seoul_competition.senior_jobtraining.domain.education.entity.Education;
 import com.seoul_competition.senior_jobtraining.domain.user.dao.UserDetailRepository;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -28,20 +27,21 @@ public class EducationRankService {
 
   public EducationRankResDto getFiveByHits(boolean user) {
 
-    List<Education> educationList = educationRepository.findByCreatedAtAfter(
-            LocalDateTime.now().minusDays(7),
+    List<Education> educationList = educationRepository.findAll(
             PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "hits")))
         .getContent();
 
     List<EducationResponse> educationResponseList = educationList.stream()
         .map(EducationResponse::new)
         .collect(Collectors.toList());
+
     return new EducationRankResDto(educationResponseList, user);
   }
+
   public EducationRankResDto getFiveInterestByHits(String interest, boolean user) {
 
     List<Object[]> resultList = userDetailRepository.getTop5PostCountsByInterestAndCategory(
-        interest, LocalDateTime.now().minusDays(7));
+        interest);
 
     List<Long> educationIds = resultList.stream()
         .map(result -> (Long) result[0])
@@ -49,12 +49,12 @@ public class EducationRankService {
 
     String educationIdsAsString = StringUtils.collectionToCommaDelimitedString(educationIds);
 
-    List<Education> educations = educationRepository.findByIdInOrderByCustomSort(educationIds,
-        educationIdsAsString);
+    List<Education> educations = educationRepository.findByIdInOrderByCustomSort(educationIds,educationIdsAsString);
 
     List<EducationResponse> educationResponseList = educations.stream()
         .map(EducationResponse::new)
         .collect(Collectors.toList());
+
     return new EducationRankResDto(educationResponseList, user);
   }
 }
