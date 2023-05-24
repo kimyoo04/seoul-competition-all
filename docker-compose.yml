@@ -110,3 +110,4 @@ services:
 
 networks:
   server-network:
+    driver: bridge
