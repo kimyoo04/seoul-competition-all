@@ -6,7 +6,7 @@ export default function ChatHeader() {
 
   return (
     <header className="chat-header">
-      <h2>Senior+ Chat</h2>
+      <h2>Guide Chatbot</h2>
       <div
         className="col-center h-8 w-8"
         onClick={() => dispatch(chatActions.closeChat())}
