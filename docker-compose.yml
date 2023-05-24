@@ -37,8 +37,8 @@ services:
       SPRING_FIFTY: ${SPRING_FIFTY}
       SPRING_SENIOR: ${SPRING_SENIOR}
       SPRING_API_KEY: ${SPRING_API_KEY}
-      JAVA_OPTS: ${JAVA_OPTS}
-      JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
+      # JAVA_OPTS: ${JAVA_OPTS}
+      # JAVA_TOOL_OPTIONS: ${JAVA_TOOL_OPTIONS}
       TZ: "Asia/Seoul"
     depends_on:
       - mysqldb
@@ -75,8 +75,8 @@ services:
         NEXT_PUBLIC_ENV_DOMAIN: ${NEXT_PUBLIC_ENV_DOMAIN}
     environment:
       TZ: "Asia/Seoul"
-    volumes:
-      - "./seoul-competition-frontend/.next/standalone:/usr/src/nextjs"
+    # volumes:
+    #   - "./seoul-competition-frontend/.next/standalone:/usr/src/nextjs"
     networks:
       - server-network
 
