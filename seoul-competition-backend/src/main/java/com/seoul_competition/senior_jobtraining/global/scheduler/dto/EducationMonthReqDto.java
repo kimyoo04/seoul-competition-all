@@ -10,7 +10,7 @@ public record EducationMonthReqDto(
     int capacity,
     String registerStart,
     String registerEnd,
-    String educationsStart,
+    String educationStart,
     String educationEnd,
     String url,
     Long hits
