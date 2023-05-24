@@ -14,6 +14,7 @@ public interface UserDetailRepository extends JpaRepository<UserDetail, Long> {
   @Query("SELECT ud.postId, COUNT(ud.postId) AS postCount " +
       "FROM UserDetail ud " +
       "WHERE ud.category = 1 " +
+      "AND ud.interest = :interest " +
       "AND ud.createdAt > :date " +
       "GROUP BY ud.postId " +
       "ORDER BY postCount DESC " +
