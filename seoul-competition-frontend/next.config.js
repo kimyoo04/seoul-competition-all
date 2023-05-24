@@ -6,8 +6,8 @@ const nextConfig = (phase) => {
     return {
       reactStrictMode: false,
       env: {
-        NEXT_PUBLIC_ENV_API_DOMAIN: "http://localhost:8888",
-        NEXT_PUBLIC_ENV_API_URL: "http://localhost:8888/api/v1",
+        NEXT_PUBLIC_ENV_API_DOMAIN: "http://localhost:80",
+        NEXT_PUBLIC_ENV_API_URL: "http://localhost:80/api/v1",
         NEXT_PUBLIC_ENV_DOMAIN: "http://localhost:3000",
       },
     };
