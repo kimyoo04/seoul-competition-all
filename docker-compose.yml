@@ -114,25 +114,25 @@ services:
     networks:
       - server-network
 
-  certbot:
-    container_name: certbot
-    image: certbot/certbot
-    volumes:
-      - "/etc/letsencrypt:/etc/letsencrypt"
-      - "/var/lib/letsencrypt:/var/lib/letsencrypt"
-    entrypoint: "/bin/sh -c 'do certbot renew'"
-    networks:
-      - server-network
-
   # certbot:
   #   container_name: certbot
   #   image: certbot/certbot
   #   volumes:
   #     - "/etc/letsencrypt:/etc/letsencrypt"
   #     - "/var/lib/letsencrypt:/var/lib/letsencrypt"
-  #   command: certonly --webroot -w /var/www/html -d www.seniorplus.site --agree-tos
+  #   entrypoint: "/bin/sh -c 'do certbot renew'"
   #   networks:
   #     - server-network
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/var/lib/letsencrypt:/var/lib/letsencrypt"
+    command: certonly --webroot -w /var/lib/letsencrypt -d www.seniorplus.site --agree-tos
+    networks:
+      - server-network
 
 networks:
   server-network:
