@@ -11,5 +11,8 @@ COPY ./default.conf /etc/nginx/conf.d/default.conf
 # 컨테이너 포트번호 지정
 EXPOSE 80
 
+RUN sudo chmod 644 /etc/letsencrypt/live/www.seniorplus.site.crt
+RUN sudo chmod 644 /etc/letsencrypt/live/www.seniorplus.site.key
+
 # 서버 실행
 CMD ["nginx", "-g", "daemon off;"]
