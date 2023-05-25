@@ -117,3 +117,13 @@ services:
 networks:
   server-network:
     driver: bridge
+# certbot docker container
+# docker run -it --rm --name certbot \
+#             -v "/etc/letsencrypt:/etc/letsencrypt" \
+#             -v "/var/lib/letsencrypt:/var/lib/letsencrypt" \
+#             certbot/certbot \
+#             certonly \
+#             --webroot \
+#             -w /var/lib/letsencrypt \
+#             -d www.seniorplus.site \
+#             --agree-tos
