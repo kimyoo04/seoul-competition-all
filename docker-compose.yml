@@ -91,7 +91,13 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./seoul-competition-nginx/default.conf:/etc/nginx/conf.d/default.conf
+      - ./seoul-competition-nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf
+      # certbot
+      - /etc/letsencrypt:/etc/letsencrypt
+      # letsencrypt
+      - /var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./seoul-competition-nginx/sites.conf:/etc/nginx/conf.d/sites.conf
+      - ./seoul-competition-nginx/sites-enabled:/etc/nginx/sites-enabled
     environment:
       NGINX_HOST: ${NGINX_HOST}
       NGINX_PORT: ${NGINX_PORT}
@@ -107,6 +113,26 @@ services:
       - fastapi
     networks:
       - server-network
+
+  certbot:
+    container_name: certbot
+    image: certbot/certbot
+    volumes:
+      - "/etc/letsencrypt:/etc/letsencrypt"
+      - "/var/lib/letsencrypt:/var/lib/letsencrypt"
+    entrypoint: "/bin/sh -c 'do certbot renew'"
+    networks:
+      - server-network
+
+  # certbot:
+  #   container_name: certbot
+  #   image: certbot/certbot
+  #   volumes:
+  #     - "/etc/letsencrypt:/etc/letsencrypt"
+  #     - "/var/lib/letsencrypt:/var/lib/letsencrypt"
+  #   command: certonly --webroot -w /var/www/html -d www.seniorplus.site --agree-tos
+  #   networks:
+  #     - server-network
 
 networks:
   server-network:
