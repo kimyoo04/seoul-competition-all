@@ -9,13 +9,11 @@ spring:
     database-platform: org.hibernate.dialect.MySQL8Dialect
     open-in-view: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
     properties:
       "[hibernate.default_batch_fetch_size]": 100
       "[hibernate.format_sql]": true
     show-sql: true
-    defer-datasource-initialization: true
-  sql.init.mode: always
   output:
     ansi:
       enabled: always
