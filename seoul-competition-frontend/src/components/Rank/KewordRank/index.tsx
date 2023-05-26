@@ -17,7 +17,7 @@ export default function KeywordRank() {
   return (
     <div className="flex h-full flex-col items-center justify-start gap-7 lg:w-1/2">
       <div className="h-14">
-        <h3 className="h-8 flex-none text-center text-2xl font-bold">
+        <h3 className="h-8 flex-none text-center text-xl font-bold">
           지난주에 가장 많이 검색된 단어예요.
         </h3>
       </div>
