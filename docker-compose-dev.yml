@@ -1,0 +1,72 @@
+version: "3.3"
+
+services:
+  mysqldb:
+    container_name: mysqldb
+    build:
+      context: ./seoul-competition-mysql
+      dockerfile: Dockerfile
+    image: mysql
+    restart: always
+    command:
+      - "--character-set-server=utf8mb4"
+      - "--collation-server=utf8mb4_unicode_ci"
+      - "--default-authentication-plugin=mysql_native_password"
+    volumes:
+      - ./seoul-competition-mysql/db:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_HOST: ${MYSQL_ROOT_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      TZ: "Asia/Seoul"
+    networks:
+      - server-network
+
+  springboot:
+    container_name: springboot
+    build:
+      context: ./seoul-competition-backend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: ${SPRING_DATASOURCE_URL}
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD}
+      SPRING_FIFTY: ${SPRING_FIFTY}
+      SPRING_SENIOR: ${SPRING_SENIOR}
+      SPRING_API_KEY: ${SPRING_API_KEY}
+      TZ: "Asia/Seoul"
+    depends_on:
+      - mysqldb
+    networks:
+      - server-network
+
+  fastapi:
+    container_name: fastapi
+    build:
+      context: ./seoul-competition-ai
+      dockerfile: Dockerfile
+    volumes:
+      - ./seoul-competition-ai:/usr/src/fastapi
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      FASTAPI_API_DOMAIN: ${FASTAPI_API_DOMAIN}
+      FASTAPI_API_URL: ${FASTAPI_API_URL}
+      FASTAPI_OPENAI_KEY: ${FASTAPI_OPENAI_KEY}
+      TZ: "Asia/Seoul"
+    depends_on:
+      - springboot
+    networks:
+      - server-network
+
+networks:
+  server-network:
+    driver: bridge
