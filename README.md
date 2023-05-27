@@ -40,8 +40,8 @@
 - **배포 직전의 Commit과 PR 기록을 보시려면 각 레포지토리를 확인해주세요.**
 
   - [Frontend](https://github.com/kimyoo04/seoul-competition-frontend)
-  - [Frontend](https://github.com/beginner0107/seoul-competition-backend)
-  - [Frontend](https://github.com/kimyoo04/seoul-competition-ai)
+  - [Backend](https://github.com/beginner0107/seoul-competition-backend)
+  - [AI](https://github.com/kimyoo04/seoul-competition-ai)
 
 - **Figma**
 
@@ -93,6 +93,7 @@
   김인재
 
 # 기술 스택
+![인프라구조](https://github.com/kimyoo04/seoul-competition-all/assets/58503130/cfa63cf8-2a32-4ef7-8b7b-10ddd3a25623)
 
 :computer: **Infra ( EC2 t2.large / Nginx / Docker-compose )**
 
