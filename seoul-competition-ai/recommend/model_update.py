@@ -21,10 +21,13 @@ import openai
 from chat import chat 
 
 end_txt = '''
-질문에 대한 답변이 사이트에 대한 조건과 적합하다면 기존의 답을
-사이트 이용에 적합하지 않은 답변이라면 새로운 답변을 생성해주세요
+사용자의 입력에 대한 답변이 사이트에 대한 조건과 적합하다면 기존의 답을,
+사이트 이용에 적합하지 않은 답변이라면 새로운 답변을 생성해주세요.
 
-답변만 반환해주세요.
+또한 사용자의 입력, 챗봇의 답변에 사람의 이름이나 누군가를 특정할 수 있는 단어가 있다면 답변에서 제거해주세요.
+답변은 가능한 일반적인 답변으로 작성되어야 합니다.
+
+답변만 반환할 것.
 '''
 
 
@@ -150,7 +153,6 @@ def history_valid(positive):
     # 챗봇 히스토리 데이터 불러오기 
     chatbot_data = chat.load_chatbot_data()
 
-    # 긍정으로 답한 "답변"에 대해서 기존에 존재하는지 확인
     check_data = []
     temp_answer = []
 
@@ -164,7 +166,7 @@ def history_valid(positive):
             continue
     
     for ques, ans in zip( positive["question"] , positive["answer"] ):
-        prompt = guide_msg + ques + "답변 :" + ans + end_txt
+        prompt = guide_msg + ques + "\n 입력에 대한 답변 :" + ans + end_txt
 
         response = chat.chatGPT( prompt )
         temp_answer.append( response["choices"][0]["message"]["content"]  )
