@@ -1,10 +1,8 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
+import CustomLink from "@components/CustomLink";
 
-import ButtonWrapper from "@components/Animation/ButtonWrapper";
-import { ICurrentPage } from "@type/link";
-
-export default function Menu({ currentPage }: { currentPage: ICurrentPage }) {
+export default function Menu() {
   return (
     <>
       <motion.div
@@ -20,29 +18,13 @@ export default function Menu({ currentPage }: { currentPage: ICurrentPage }) {
             href={"/educations"}
             className="col-center w-full border-b border-main_color/30 py-2"
           >
-            <ButtonWrapper>
-              <span
-                className={`text-lg ${
-                  currentPage.educations ? "font-bold text-main_color" : ""
-                }`}
-              >
-                교육 정보
-              </span>
-            </ButtonWrapper>
+            <CustomLink href={"/educations"} text={"교육 정보"} />
           </Link>
           <Link
             href={"/posts"}
             className="col-center w-full border-b border-main_color/30 py-2"
           >
-            <ButtonWrapper>
-              <span
-                className={`text-lg ${
-                  currentPage.posts ? "font-bold text-main_color" : ""
-                }`}
-              >
-                자유게시판
-              </span>
-            </ButtonWrapper>
+            <CustomLink href={"/posts"} text={"자유게시판"} />
           </Link>
         </div>
       </motion.div>

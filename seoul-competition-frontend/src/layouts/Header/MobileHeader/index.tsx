@@ -64,7 +64,7 @@ export default function MobileHeader({
       )}
 
       {/* 링크 영역 */}
-      {showMenu && <Menu currentPage={currentPage} />}
+      {showMenu && <Menu />}
     </>
   );
 }
