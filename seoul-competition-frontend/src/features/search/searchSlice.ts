@@ -34,7 +34,6 @@ export const searchSlice = createSlice({
     // 카테고리 선택 및 해당 최근 검색어 전체 조회
     chooseCategory: (state, actions: PayloadAction<ISearchCategory>) => {
       state.isFocus = false;
-      state.searchKeyword = "";
       state.category = actions.payload.searchCategory;
       state.keywords = JSON.parse(localStorage.getItem(state.category) || "[]");
     },

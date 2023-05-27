@@ -2,7 +2,6 @@ import { useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "@toolkit/hook";
 import { searchActions } from "@features/search/searchSlice";
-import { filterActions } from "@features/filter/filterSlice";
 
 import Sidebar from "@components/Sidebar";
 import FilterToggle from "@components/FilterToggle";
@@ -16,7 +15,6 @@ export default function Educations() {
   //! educations로 카테고리 선택 및 기존 골라보기 초기화
   useEffect(() => {
     dispatch(searchActions.chooseCategory({ searchCategory: "educations" }));
-    dispatch(filterActions.resetParams());
   }, [dispatch]);
 
   return (

@@ -14,7 +14,7 @@ export default function EducationRank() {
   return (
     <div className="w-full">
       <h3 className="mb-5 text-center text-xl font-bold">
-        지난주에 가장 인기 있던 교육 정보예요.
+        일주일간 가장 인기 있던 교육 정보예요.
       </h3>
 
       <section>
