@@ -12,21 +12,22 @@ import openai
 def return_guide() :
 
     guide_msg = '''
-                    1. 사이트 종류: 교육 정보 공유 사이트
-                    2. 기능:
+                    - 사이트 종류: 교육 정보 공유 사이트
+                    - 사이트의 제공 기능:
                         교육 정보 게시판: 교육과 관련된 정보를 게시하고 공유하는 공간입니다. 교육정보 페이지 우측 하단에 '골라보기' 버튼을 클릭하여 확인할 수 있습니다.
                         자유게시판: 교육과는 관련없는 다양한 주제로 글을 작성하고 의견을 공유하는 공간입니다.
                         댓글 기능: 교육 정보나 게시글에 대한 댓글을 작성하고 수정, 삭제할 수 있습니다. 댓글 작성 시 비밀번호를 설정하여 식별이 가능합니다.
                         별점: 교육 정보에 대한 별점을 남기는 기능은 제공하지 않습니다.
                         검색 기능: 교육 정보 검색 기능은 제공합니다. 사용자가 검색한 교육 정보에 대하여 유사한 교육 정보를 추천해줍니다.
                         사용자 식별: 댓글 작성 시 비밀번호를 설정하여 수정과 삭제를 제한적으로 가능하게 합니다.
-                    
-                    사용자가 인사 및 고마움의 표현에 대해서는 자연스럽게 답변할 것.
-                    조건에 맞지 않는 질문의 경우에는 최대한 친절하게 답할 것.
 
-                    답변은 최대한 한 문장으로 끝낼것.
+                    - 답변 생성시 주의사항 :
+                        사용자가 인사 및 고마움의 표현및 조건에 맞지 않는 질문, 일상적인 질문의 경우에도 친절하고 자연스럽게 답변할 것.
+                        생성한 문장(답변)에 사람의 이름이 있다면 반드시 제거해주세요.
+                        답변은 가능한 일반적이고 보편적인 답변이 되어야합니다.
+                        질문에 대한 답변은 가능한 한 문장으로 마무리하여 답변할 것.
 
-                    질문 :
+                    제시된 조건을 참고하여 다음 문장에 대해서 적절한 답변을 해줘.
             '''
     return guide_msg
 
@@ -123,10 +124,11 @@ def chatGPT(prompt) :
         model = "gpt-3.5-turbo",
 
         messages=[
+        {"role": "system", "content": "너는 교육 정보 추천 사이트의 챗봇이야"},
         {"role": "user", "content": prompt},
         ]
         ,
-        temperature = 0.3
+        temperature = 0.4
     )
     return response
 
@@ -158,12 +160,13 @@ def use_chatbot(user_question, chatbot_model) :
         chatbot_data["cosin"] = chatbot_data["embedding"].map(lambda x : cosine_similarity([final_input_data],[x]).squeeze())
 
 
-        if chatbot_data["cosin"].max() < 0.60 :
+        if chatbot_data["cosin"].max() < 0.70 :
             # 사전 제약조건 + 유저의 입력
             prompt = return_guide() + user_question
 
             # 간혹 GPT 응답 오류 처리 
             try : 
+                print("이 답변은 GPT를 통해 생성되었습니다.")
                 response = chatGPT( prompt )
             
             except : 
@@ -172,17 +175,17 @@ def use_chatbot(user_question, chatbot_model) :
 
             answer = response["choices"][0]["message"]["content"]
 
-            temp_dict = {"question" : user_question, 
-                         "answer" : answer, 
-                         "embedding" : [final_input_data] }
+            # temp_dict = {"question" : user_question, 
+            #              "answer" : answer, 
+            #              "embedding" : [final_input_data] }
             
-            temp_df = pd.DataFrame(temp_dict)
+            # temp_df = pd.DataFrame(temp_dict)
 
-            # GPT에서 생성된 대화를 챗봇 데이터에 추가 
-            origin_chatbot_data = pd.concat([origin_chatbot_data, temp_df], ignore_index=True)
+            # # GPT에서 생성된 대화를 챗봇 데이터에 추가 
+            # origin_chatbot_data = pd.concat([origin_chatbot_data, temp_df], ignore_index=True)
 
-            path = os.path.join(os.getcwd(), 'data', 'chatbot_data_test.pkl')
-            origin_chatbot_data.to_pickle(path)
+            # path = os.path.join(os.getcwd(), 'data', 'chatbot_data_test.pkl')
+            # origin_chatbot_data.to_pickle(path)
 
             # 답변 반환
             return answer 
