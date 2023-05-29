@@ -7,28 +7,22 @@
 
 <a name="list"></a>
 
-# 목차
+## 목차
 
 - [Project Name](#project-name)
-- [목차](#목차)
-- [프로젝트 개요](#프로젝트-개요)
-  - [1. 서비스 제작 및 필요성](#1-서비스-제작-및-필요성)
-  - [2. 활용 공공데이터](#2-활용-공공데이터)
-  - [3. 개발과정 및 방법](#3-개발과정-및-방법)
-  - [4. IA (Infomation-Architecture)](#4-ia-infomation-architecture)
-  - [5. 화면 및 기능 설명](#5-화면-및-기능-설명)
-- [팀 구성원](#팀-구성원)
-- [역할 분담](#역할-분담)
-- [기술 스택](#기술-스택)
-- [.env 설정](#env-설정)
+  - [목차](#목차)
+  - [프로젝트 소개](#프로젝트-소개)
+  - [개발과정](#개발과정)
+  - [팀 구성원](#팀-구성원)
+  - [역할 분담](#역할-분담)
+  - [기술 스택](#기술-스택)
+  - [.env 설정](#env-설정)
 
-# 프로젝트 개요
+## 프로젝트 소개
 
-### 1. 서비스 제작 및 필요성
+- [상세기획서 보기](#)
 
-### 2. 활용 공공데이터
-
-### 3. 개발과정 및 방법
+## 개발과정
 
 - **Github**
 
@@ -41,29 +35,9 @@
 
   - [Frontend](https://github.com/kimyoo04/seoul-competition-frontend)
   - [Backend](https://github.com/beginner0107/seoul-competition-backend)
-  - [AI](https://github.com/kimyoo04/seoul-competition-ai)
+  - [AI](https://github.com/Pang-dachu/seoul-competition-ai)
 
-- **Figma**
-
-  - 아이디에이션과 실시간 피드백을 위해 사용했습니다.
-
-- **Gather**
-
-  - 매주 수요일, 일요일 8시에 회의를 고정적으로 진행했습니다.
-
-- **Google docs**
-
-  - 회의록, 회의 내용, 회의 일정을 관리했습니다.
-
-- **Swagger, Postman**
-
-  - API 문서를 관리했습니다.
-
-### 4. IA (Infomation-Architecture)
-
-### 5. 화면 및 기능 설명
-
-# 팀 구성원
+## 팀 구성원
 
 <table>
 <tr>
@@ -75,24 +49,25 @@
 </tr>
 </table>
 
-# 역할 분담
+## 역할 분담
 
-- Leader
+- **Leader**
   김유
 
-- Infra
+- **Infra**
   김유, 안승주
 
-- Frontend
+- **Frontend**
   김유, 정채영
 
-- Backend
+- **Backend**
   안승주, 곽민성
 
-- AI
+- **AI**
   김인재
 
-# 기술 스택
+## 기술 스택
+
 ![인프라구조](https://github.com/kimyoo04/seoul-competition-all/assets/58503130/cfa63cf8-2a32-4ef7-8b7b-10ddd3a25623)
 
 :computer: **Infra ( EC2 t2.large / Nginx / Docker-compose )**
@@ -103,7 +78,7 @@
 
 :computer: **AI ( Fastapi / Scikit-learn / Konlpy / Transformer / chatGPT )**
 
-# .env 설정
+## .env 설정
 
 ```
 # NGINX (컨테이너 적용 X)
@@ -127,8 +102,6 @@ SPRING_DATASOURCE_PASSWORD=
 SPRING_FIFTY=
 SPRING_SENIOR=
 SPRING_API_KEY=
-JAVA_OPTS=
-JAVA_TOOL_OPTIONS=
 
 # MYSQL
 MYSQL_DATABASE=
@@ -141,5 +114,4 @@ MYSQL_PASSWORD=
 FASTAPI_API_DOMAIN=
 FASTAPI_API_URL=
 FASTAPI_OPENAI_KEY=
-
 ```
