@@ -1,15 +1,11 @@
-<a name="project-name"></a>
-
-# Project Name
+# Senior+ (시니어 플러스)
 
 - [2023년 서울 열린데이터광장 공공데이터활용 모바일 앱/웹 경진대회 프로젝트](https://mediahub.seoul.go.kr/gongmo/2000334)
 - 개발 기간 : 23.04.05 ~ 23.05.31
 
-<a name="list"></a>
-
 ## 목차
 
-- [Project Name](#project-name)
+- Senior+ (시니어 플러스)
   - [목차](#목차)
   - [프로젝트 소개](#프로젝트-소개)
   - [개발과정](#개발과정)
@@ -20,7 +16,7 @@
 
 ## 프로젝트 소개
 
-- [상세기획서 보기](#)
+- [상세기획서 보기](https://github.com/kimyoo04/seoul-competition-all/blob/develop/%EC%8B%9C%EB%8B%88%EC%96%B4%ED%94%8C%EB%9F%AC%EC%8A%A4_Senior%2B_%EC%83%81%EC%84%B8%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf)
 
 ## 개발과정
 
@@ -65,6 +61,10 @@
 
 - **AI**
   김인재
+
+## ERD
+
+![ERD](https://github.com/kimyoo04/seoul-competition-all/assets/58503130/d91adf9b-49e4-4cf8-951e-819abe553844)
 
 ## 기술 스택
 
